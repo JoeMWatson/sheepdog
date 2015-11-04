@@ -7,7 +7,7 @@ classdef agent < matlab.mixin.SetGet
         id;
         % Position expressed as a column vector in x and y
         position;
-        % Heading is a 2x2 rotation matrix, must always be unit magnitude
+        % Heading is a 2x1 unit vector, must always be unit magnitude
         heading;
         % Fitness reflects the physical capabilities of an agent, value
         % between 0 and 1
@@ -19,11 +19,15 @@ classdef agent < matlab.mixin.SetGet
     end
     
     methods
-        function ele = agent(id);
-            ele.id=id;
-            ele.position = [0 0]';
-            ele.heading = [1 0]';
-            ele.fitness = 0;
+
+        function ele = agent(id)
+            if nargin > 0
+                ele.id=id;
+                ele.position = [0 0]';
+                ele.heading = [1 0]';
+%                 ele.heading = [[0,-1];[1,0]];
+                ele.fitness = 0;
+            end
         end
         
         % Get position

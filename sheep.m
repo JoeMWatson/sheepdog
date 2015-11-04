@@ -11,16 +11,14 @@ classdef sheep < agent
     
     methods
         function ele = sheep(id)
-            % Calls the agent constructor
-            ele = ele@agent(id);
+            % Calls the agent constructor          
+            ele@agent(id);
             ele.type = 0;
-            
             % Assign sheep fitness, including randomness
             stochast = normrnd(0.5,0.25);
             ele.fitness = stochast;
-            
             % Position sheep, including randomness
-            ele.position = rand(2,1);
+            ele.position = [-50;-50] + 100*rand(2,1);
         end
         
         function shepherd(object,pack,timestep)
@@ -28,8 +26,8 @@ classdef sheep < agent
             
             % Get vectors to herd of agents // CURRENTLY NO OTHER DOGS
             for i = 1:length(pack)
-                temp = this.getVector(pack(i));
-                bearing = bearing + object.get.dog_priority*temp*(abs(temp)^-2);
+                temp = object.getVector(pack(i));
+                bearing = bearing + object.get.dog_priority*temp/norm(temp); %not sure what you're doing
             end
             
             % Get wall properties
@@ -51,7 +49,7 @@ classdef sheep < agent
             end
             
             % Normalise bearing
-            bearing = bearing/abs(bearing);
+            bearing = bearing/norm(bearing);
             
             % Update heading
             object.heading = (object.heading + bearing)/2;

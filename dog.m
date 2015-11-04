@@ -27,8 +27,8 @@ classdef dog < agent
             
             % Get vectors to herd of agents // CURRENTLY NO OTHER DOGS
             for i = 1:length(herd)
-                temp = this.getVector(herd(i));
-                bearing = bearing + object.get.sheep_priority*temp*(abs(temp)^-2);
+                temp = object.getVector(herd(i));
+                bearing = bearing + object.get.sheep_priority*temp/norm(temp);
             end
             
             % Get wall properties
@@ -50,7 +50,7 @@ classdef dog < agent
             end
             
             % Normalise bearing
-            bearing = bearing/abs(bearing);
+            bearing = bearing/norm(bearing);
             
             % Update heading
             object.heading = (object.heading + bearing)/2;

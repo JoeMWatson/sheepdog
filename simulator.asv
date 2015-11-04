@@ -1,28 +1,48 @@
 % Sheepdog Simulator 4M20 Robotics
+
 % Initialise
-N = input('How many sheep de ye wante ladde?\n');
+NSheep = input('How many sheep de ye wante ladde?\n');
+
 % define agents
-s = sheep(1);
+herd = sheep.empty(NSheep,0);
+for i=1:NSheep
+    herd(i)=sheep(i);
+end
 d = dog(1);
-% Index
+% herd = cell(NSheep);
+% for i =1:NSheep
+%     herd(i)=sheep(i);
+% end
+
+% Index and timestep
 t=1;
+dt=0.1;
+
 %Figure
 fig=figure('Name','Simulator');
-hold on
-% Hide and set axis
-axis([0,100,0,100])
-set(findobj(gcf, 'type','axes'), 'Visible','off')
-% Background colour
-set(gcf, 'Color', [0.4,1,0.4]);
-% Plot
-while(1)
-    plot(x(t),y(t),'-','LineWidth',3)
-    plot(s.position(1),s.position(2),'ow','LineWidth',3)
-    plot(d.position(1),d.position(2),'ok','LineWidth',3)
-    pause(0.001);
-    t=t+1;
+    hold on
+    % Hide and set axis
+    axis([-50,50,-50,50])
+    set(findobj(gcf, 'type','axes'), 'Visible','off')
+    % Background colour
+    set(gcf, 'Color', [0.4,1,0.4]);
     
-    if ~ishghandle(fig) %Kill loop when closing figure
-        break
+    % Plot
+    while(1)
+        for i=1:NSheep
+%             pack(i).shepherd
+              herd(i).shepherd(herd,dt);
+        end
+        d.move(dt)
+        rectangle('Position',[-100,-100,200,200],'FaceColor',[0.4,1,0.4],'EdgeColor',[0.8,0.8,0.1],'LineWidth',5)
+        for i=1:NSheep
+            plot(herd(i).position(1),herd(i).position(2),'.w', 'MarkerSize',25)
+        end
+        plot(d.position(1),d.position(2),'.k', 'MarkerSize',10)
+        pause(0.001);
+        t=t+1;
+
+        if ~ishghandle(fig) %Kill loop when closing figure
+            break
+        end
     end
-end
