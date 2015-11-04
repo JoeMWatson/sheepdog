@@ -44,7 +44,7 @@ classdef agent < matlab.mixin.SetGet
         
         % Move object forward
         function move(object,dt)
-            new_position = object.position + object.heading*fitness*dt;
+            new_position = object.position + object.heading*object.fitness*dt;
             object.setPosition(new_position);
         end
         

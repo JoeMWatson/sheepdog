@@ -16,7 +16,7 @@ classdef sheep < agent
             ele.type = 0;
             
             % Assign sheep fitness, including randomness
-            stochast = normrand(0.5,0.25);
+            stochast = normrnd(0.5,0.25);
             ele.fitness = stochast;
             
             % Position sheep, including randomness

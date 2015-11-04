@@ -1,0 +1,28 @@
+% Sheepdog Simulator 4M20 Robotics
+% Initialise
+N = input('How many sheep de ye wante ladde?\n');
+% define agents
+s = sheep(1);
+d = dog(1);
+% Index
+t=1;
+%Figure
+fig=figure('Name','Simulator');
+hold on
+% Hide and set axis
+axis([0,100,0,100])
+set(findobj(gcf, 'type','axes'), 'Visible','off')
+% Background colour
+set(gcf, 'Color', [0.4,1,0.4]);
+% Plot
+while(1)
+    plot(x(t),y(t),'-','LineWidth',3)
+    plot(s.position(1),s.position(2),'ow','LineWidth',3)
+    plot(d.position(1),d.position(2),'ok','LineWidth',3)
+    pause(0.001);
+    t=t+1;
+    
+    if ~ishghandle(fig) %Kill loop when closing figure
+        break
+    end
+end
